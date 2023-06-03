@@ -3,101 +3,129 @@
 #include <string>
 #include <sstream>
 #include <utility>
+#include <fstream>
+#include <chrono>
+
 #include "graph.hpp"
+
+#define TOPOLOGY "topology"
+#define SHOW "show"
+#define MODIFY "modify"
+#define REMOVE "remove"
+#define BGP "bgp"
+#define LSRP "lsrp"
+#define DVRP "dvrp"
+#define EXIT "exit"
+
 using namespace std;
-// input should be in this format:
-// <s1>-<d1>-<c1> <s2>-<d2>-<c2> 
-// 1-2-19 1-3-9 2-4-3 2-5-3 2-6-4 7-5-4 4-5-3 7-6-4
-int main() {
-  string str;
-  vector<vector<int>> input;
 
-  // getline(cin,str);
-  // str = "1-2-19 1-3-9 2-4-3 2-5-3 2-6-4 7-5-4 4-5-3 7-6-4";
-  // stringstream in_ss(str);
-  // while(in_ss >> str) {
-  //   int s,d,c;
-  //   string temp;
-  //   stringstream ss(str);
-  //   getline(ss, temp,'-');
-  //   s = stoi(temp);
-  //   getline(ss, temp,'-');
-  //   d = stoi(temp);
-  //   getline(ss, temp,'-');
-  //   c = stoi(temp);
-  //   ss.clear();
-  //   // cout << s << '\t' << d << '\t' << c << '\n';
-  //   input.push_back({s,d,c});
-  // }
+void PressEntertoContinue()
+{
+  // stay in this fution until user type Enter
+  cout << "Press Enter to continue...";
+  cin.ignore(numeric_limits<streamsize>::max(), '\n');
+  // clear screen
+  system("clear");
+}
 
-  // for (size_t i = 0; i < input.size(); i++) { 
-  //   cout << input[i][0] << '\t' << input[i][1] << '\t' << input[i][2] << endl; 
-  // }
-
-  // graph g = graph(input);
-  // g.g_print();
-  // ----------------------------------------------------------------
-  graph g;
-  Status status;
-  while (true) {
-    print_menu();
-    getline(cin,str);
-    stringstream in_ss(str);
-    string command_tye;
-    in_ss >> command_tye;
-    if (command_tye == "exit") {
-      break;
-    }else if (command_tye == "topology") {
-      while(in_ss >> str) {
-        int s,d,c;
-        string temp;
-        stringstream ss(str);
-        getline(ss, temp, '-');
-        s = stoi(temp);
-        getline(ss, temp, '-');
-        d = stoi(temp);
-        getline(ss, temp, '-');
-        c = stoi(temp);
-        ss.clear();
-        // cout << s << '\t' << d << '\t' << c << '\n';
-        input.push_back({s,d,c});
-      }      
-      status = g.init(input);
-      if (status == Status::ERROR) {
-        cout << "Error" << endl;
-      } else {
-        cout << "OK" << endl;
-      }
-      
-    }else if (command_tye == "show") {
-      g.print();
-    }else if (command_tye == "modify") {
-      int s,d,c;
-      string temp;
-      getline(in_ss, temp, '-');
-      s = stoi(temp);
-      getline(in_ss, temp, '-');
-      d = stoi(temp);
-      getline(in_ss, temp, '-');
-      c = stoi(temp);
-    }else if (command_tye == "remove") {
-      
-    }else if (command_tye == "lsrp") {
-      
-    }else if (command_tye == "bgp") {
-      
-    }else if (command_tye == "dvrp") {
-      
-    }else {
-      cout << "Error: " << str << " is not a valid command line" << endl; 
-    } 
-    in_ss.clear();
+vector<int> get_dash_seperated_int(string input, int num_of_int)
+{
+  vector<int> result;
+  stringstream ss(input);
+  string temp;
+  for (size_t i = 0; i < num_of_int; i++)
+  {
+    getline(ss, temp, '-');
+    result.push_back(stoi(temp));
   }
-} 
+  return result;
+}
 
-void print_menu() {
+bool get_input(Graph &networkGraph)
+{
+  string command;
+  cin >> command;
+  if (command == EXIT)
+  {
+    return false;
+  }
+  else if (command == TOPOLOGY)
+  {
+    string str;
+    vector<vector<int>> input;
+    while (getline(cin, str, ' '))
+    {
+      if (str == "")
+      {
+        break;
+      }
+      input.push_back(get_dash_seperated_int(str, 3));
+    }
+    Status status = networkGraph.init(input);
+    if (status == Status::ERROR)
+    {
+      cout << "Error: source and destination node can NOT be identical!" << endl;
+    }
+    else
+    {
+      cout << "Done!" << endl;
+    }
+  }
+  else if (command == SHOW)
+  {
+    networkGraph.print();
+  }
+  else if (command == MODIFY)
+  {
+    string str;
+    vector<int> input;
+    getline(cin, str);
+    vector<int> input = get_dash_seperated_int(str,3);
+
+    Status status = networkGraph.modify(input);
+    if (status == Status::ERROR)
+    {
+      cout << "Error: source and destination node can NOT be identical!" << endl;
+    }
+    else
+    {
+      cout << "Done!" << endl;
+    }
+  }
+  else if (command == REMOVE)
+  {
+  }
+  else if (command == BGP)
+  {
+  }
+  else if (command == LSRP)
+  {
+  }
+  else if (command == DVRP)
+  {
+  }
+  else
+  {
+    cout << "Error: " << command << " is not a valid command line" << endl;
+  }
+}
+
+// input should be in this format:
+// <s1>-<d1>-<c1> <s2>-<d2>-<c2>
+// 1-2-19 1-3-9 2-4-3 2-5-3 2-6-4 7-5-4 4-5-3 7-6-4
+int main()
+{
+  Graph networkGraph;
+  while (get_input(networkGraph))
+  {
+    PressEntertoContinue();
+  }
+}
+
+void print_menu()
+{
   cout << "****************commands****************" << endl;
-  cout << "topology <s>-<d>-<c> <s>-<d>-<c> ..." << endl;
+  cout << "topology <s1>-<d1>-<c1> <s2>-<d2>-<c2> ..." << endl;
   cout << "show" << endl;
   cout << "modify <s>-<d>-<c>" << endl;
   cout << "remove <s>-<d>" << endl;
