@@ -40,8 +40,10 @@ private:
 public:
   void print();
   Status init(vector<vector<int>> input);
-  Status modify(vector<int> &input);
+  Status modify(vector<int> const &input);
+  Status remove(vector<int> const &input);
 };
+
 // 1-2-19 1-3-9 2-4-3 2-5-3 2-6-4 7-5-4 4-5-3 7-6-4
 // s-d-c
 void Graph::print()
@@ -112,30 +114,49 @@ Status Graph::init(vector<vector<int>> input)
   return Status::OK;
 }
 
-Status Graph::modify(vector<int> &input)
+Status Graph::modify(vector<int> const &input)
 {
-  // at least one node does not exist
-  if (nodes.find(input[0]) == nodes.end() || nodes.find(input[1]) == nodes.end())
-  {
-    return Status::NOT_EXIST;
-  }
+  // if any node does not exist --> error
+  //  if (nodes.find(input[0]) == nodes.end() || nodes.find(input[1]) == nodes.end())
+  //  {
+  //    return Status::NOT_EXIST;
+  //  }
+
+  //  maybe we can add new node with this command:
   if (input[0] == input[1])
   {
     return Status::ERROR;
   }
-  bool path_exist = false;
+  if (nodes.find(input[0]) == nodes.end())
+  {
+    nodes[input[0]] = adj_nodes.size();
+    adj_nodes.push_back(map<int, int>());
+  }
+  if (nodes.find(input[1]) == nodes.end())
+  {
+    nodes[input[1]] = adj_nodes.size();
+    adj_nodes.push_back(map<int, int>());
+  }
   int index_s = nodes[input[0]];
   int index_d = nodes[input[1]];
 
-  // check if a path exists between s and d
-  for (size_t i = 0; i < adj_nodes[index_s].size(); i++)
-  {
-    if (adj_nodes[index_s][0] == input[1])
-    {
-      path_exist = true;
-      adj_nodes[index_s][i] =
-    }
-  }
+  adj_nodes[index_s][input[1]] = input[2];
+  adj_nodes[index_d][input[0]] = input[2];
+  return Status::OK;
+}
 
-  if
+Status Graph::remove(vector<int> const &input)
+{
+  if (nodes.find(input[0]) == nodes.end() || nodes.find(input[1]) == nodes.end())
+  {
+    return Status::NOT_EXIST;
+  }
+  int index_s = nodes[input[0]];
+  int index_d = nodes[input[1]];
+  if (adj_nodes[index_s].find(input[1]) == adj_nodes[index_s].end()) {
+    return Status::NOT_EXIST;
+  }
+  adj_nodes[index_s].erase(input[1]);
+  adj_nodes[index_d].erase(input[0]);
+  // we can delete a node if it doesn't have any neighbour, using map.size() == 0;
 }

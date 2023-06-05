@@ -25,9 +25,20 @@ void PressEntertoContinue()
   cout << "Press Enter to continue...";
   cin.ignore(numeric_limits<streamsize>::max(), '\n');
   // clear screen
-  system("clear");
-}
+  // it's wierd, Idon't know why, but it doesn't work.
+  system("cls"); // windows
+  // system("clear"); // linux
 
+}
+vector<string> get_space_seprated_str(string str)
+{
+  stringstream ss(str);
+  vector<string> result;
+  while(ss >> str) {
+    result.push_back(str);
+  }
+  return result;
+}
 vector<int> get_dash_seperated_int(string input, int num_of_int)
 {
   vector<int> result;
@@ -53,13 +64,13 @@ bool get_input(Graph &networkGraph)
   {
     string str;
     vector<vector<int>> input;
-    while (getline(cin, str, ' '))
+    getline(cin, str);
+    vector<string> params;
+    params = get_space_seprated_str(str);
+    for (size_t i = 0; i < params.size(); i++)
     {
-      if (str == "")
-      {
-        break;
-      }
-      input.push_back(get_dash_seperated_int(str, 3));
+      /* code */
+      input.push_back(get_dash_seperated_int(params[i], 3));
     }
     Status status = networkGraph.init(input);
     if (status == Status::ERROR)
@@ -80,7 +91,10 @@ bool get_input(Graph &networkGraph)
     string str;
     vector<int> input;
     getline(cin, str);
-    vector<int> input = get_dash_seperated_int(str,3);
+    vector<string> params;
+    params = get_space_seprated_str(str);
+    str = params[0];
+    input = get_dash_seperated_int(str, 3);
 
     Status status = networkGraph.modify(input);
     if (status == Status::ERROR)
@@ -94,6 +108,23 @@ bool get_input(Graph &networkGraph)
   }
   else if (command == REMOVE)
   {
+    string str;
+    vector<int> input;
+    getline(cin, str);
+    vector<string> params;
+    params = get_space_seprated_str(str);
+    str = params[0];
+    input = get_dash_seperated_int(str, 2);
+
+    Status status = networkGraph.modify(input);
+    if (status == Status::ERROR)
+    {
+      cout << "Error: source and destination node can NOT be identical!" << endl;
+    }
+    else
+    {
+      cout << "Done!" << endl;
+    }
   }
   else if (command == BGP)
   {
@@ -108,6 +139,7 @@ bool get_input(Graph &networkGraph)
   {
     cout << "Error: " << command << " is not a valid command line" << endl;
   }
+  return true;
 }
 
 // input should be in this format:
