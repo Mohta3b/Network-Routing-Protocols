@@ -4,7 +4,7 @@
 #include <map>
 // pair
 #include <utility>
-
+#define INFINITY 999999
 #define SPACE_LENGTH 6
 using namespace std;
 
@@ -165,7 +165,13 @@ Status Graph::remove(vector<int> const &input)
   if (adj_nodes[index_s].find(input[1]) == adj_nodes[index_s].end()) {
     return Status::NOT_EXIST;
   }
+  // cout << adj_nodes[index_s].size();
   adj_nodes[index_s].erase(input[1]);
+  // cout << adj_nodes[index_s].size();
   adj_nodes[index_d].erase(input[0]);
+
+  // if(adj_nodes[index_s].find(input[1]) == adj_nodes[index_s].end()) {
+  //   cout << "yes" << endl;
+  // }
   // we can delete a node if it doesn't have any neighbour, using map.size() == 0;
 }

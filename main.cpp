@@ -30,7 +30,7 @@ void PressEntertoContinue()
   // clear screen
   // it's wierd, Idon't know why, but it doesn't work.
   // system("cls"); // windows
-  system("clear"); // linux
+  // system("clear"); // linux
 
 }
 vector<string> get_space_seprated_str(string str)
@@ -117,8 +117,8 @@ bool get_input(Graph &networkGraph)
     vector<string> params;
     params = get_space_seprated_str(str);
     str = params[0];
-    input = get_dash_seperated_int(str, 1);
-    Status status = networkGraph.modify(input);
+    input = get_dash_seperated_int(str, 2);
+    Status status = networkGraph.remove(input);
     if (status == Status::ERROR)
     {
       cout << "Error: source and destination node can NOT be identical!" << endl;
@@ -133,11 +133,15 @@ bool get_input(Graph &networkGraph)
   }
   else if (command == LSRP)
   {
-    networkGraph.lsrp();
+    string str;
+    cin >> str;
+    networkGraph.lsrp(stoi(str));
   }
   else if (command == DVRP)
   {
-    networkGraph.dvrp();
+    string str;
+    cin >> str;
+    networkGraph.dvrp(stoi(str));
   }
   else
   {

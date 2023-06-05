@@ -1,6 +1,5 @@
 #pragma once
 #include"graph.hpp"
-#include "math.h"
 #include "chrono"
 #include "iomanip"
 
@@ -21,7 +20,7 @@
     cout << "Cost\t";
     for (auto it : distance)
     {
-      if (it.second == INFINITY)
+      if (it.second == int(INFINITY))
       {
         cout << "-1";
         print_space(SPACE_LENGTH - 2);
@@ -33,8 +32,8 @@
         print_space(SPACE_LENGTH - to_string(it.second).size());
         cout << "| ";
       }
-      
     }
+    cout << endl;
     cout << "----------------" << endl;
   }
 
@@ -51,7 +50,7 @@
       cout << "[" << source << "] -> [" << it.first << "]";
       print_space(SPACE_LENGTH - to_string(it.first).size());
       cout << "| ";
-      if (it.second == INFINITY)
+      if (it.second == int(INFINITY))
       {
         cout << "-1";
         print_space(SPACE_LENGTH - 2);
@@ -63,7 +62,7 @@
         print_space(SPACE_LENGTH - to_string(it.second).size());
         cout << "| ";
       }
-      if (it.second == INFINITY)
+      if (it.second == int(INFINITY))
       {
         cout << "No Path" << endl;
       }
@@ -194,7 +193,7 @@
       cout << "| ";
       
       // Next Hop
-      if (it.second == INFINITY)
+      if (it.second == int(INFINITY))
       {
         cout << "-1";
         print_space(SPACE_LENGTH - 2);
@@ -208,13 +207,18 @@
           path.push_back(current);
           current = previous[current];
         }
-        cout << path[path.size() - 2];
-        print_space(SPACE_LENGTH - to_string(path[path.size() - 2]).size());
+        if(path.size() == 1) {
+          cout << path[path.size() - 1];
+          print_space(SPACE_LENGTH - to_string(path[path.size() - 1]).size());
+        } else {
+          cout << path[path.size() - 2];
+          print_space(SPACE_LENGTH - to_string(path[path.size() - 2]).size());
+        }
       }
       cout << "| ";
 
       // Dist
-      if (it.second == INFINITY)
+      if (it.second == int(INFINITY))
       {
         cout << "-1";
         print_space(SPACE_LENGTH - 2);
@@ -227,7 +231,7 @@
       cout << "| ";
       
       // Shortest path
-      if (it.second == INFINITY)
+      if (it.second == int(INFINITY))
       {
         cout << "No Path" << endl;
       }
