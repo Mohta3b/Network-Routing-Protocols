@@ -114,8 +114,7 @@ bool get_input(Graph &networkGraph)
     vector<string> params;
     params = get_space_seprated_str(str);
     str = params[0];
-    input = get_dash_seperated_int(str, 2);
-
+    input = get_dash_seperated_int(str, 1);
     Status status = networkGraph.modify(input);
     if (status == Status::ERROR)
     {

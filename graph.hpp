@@ -42,6 +42,8 @@ public:
   Status init(vector<vector<int>> input);
   Status modify(vector<int> const &input);
   Status remove(vector<int> const &input);
+  void lsrp(int source=-1);
+  void dvrp(int source=-1);
 };
 
 // 1-2-19 1-3-9 2-4-3 2-5-3 2-6-4 7-5-4 4-5-3 7-6-4
