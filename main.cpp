@@ -6,7 +6,8 @@
 #include <fstream>
 #include <chrono>
 
-#include "graph.hpp"
+#include "protocol.hpp"
+
 
 #define TOPOLOGY "topology"
 #define SHOW "show"
@@ -24,10 +25,12 @@ void PressEntertoContinue()
   // stay in this fution until user type Enter
   cout << "Press Enter to continue...";
   cin.ignore(numeric_limits<streamsize>::max(), '\n');
+  cin.ignore(numeric_limits<streamsize>::max(), '\n');
+  
   // clear screen
   // it's wierd, Idon't know why, but it doesn't work.
-  system("cls"); // windows
-  // system("clear"); // linux
+  // system("cls"); // windows
+  system("clear"); // linux
 
 }
 vector<string> get_space_seprated_str(string str)
@@ -130,9 +133,11 @@ bool get_input(Graph &networkGraph)
   }
   else if (command == LSRP)
   {
+    networkGraph.lsrp();
   }
   else if (command == DVRP)
   {
+    networkGraph.dvrp();
   }
   else
   {

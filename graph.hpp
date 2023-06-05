@@ -42,11 +42,15 @@ public:
   Status init(vector<vector<int>> input);
   Status modify(vector<int> const &input);
   Status remove(vector<int> const &input);
-  void lsrp(int source=-1);
-  void dvrp(int source=-1);
+  void lsrp(int source = -1);
   void dijkstra(int source);
   void print_iteration(int iter,map<int, int> distance);
   void print_lsrp(int source, map<int, int> distance, map<int, int> previous);
+
+  void dvrp(int source = -1);
+  void bellman_ford(int source);
+  void print_dvrp(map<int, int> distance, map<int, int> previous);
+
 };
 
 // 1-2-19 1-3-9 2-4-3 2-5-3 2-6-4 7-5-4 4-5-3 7-6-4
@@ -83,7 +87,7 @@ void Graph::print()
         // cout << adj_nodes[it.second].first << " " << adj_nodes[it.second][j].second << '\t';
       }
     }
-    cout << '\n';
+    cout << endl;
   }
   cout << endl;
 }
