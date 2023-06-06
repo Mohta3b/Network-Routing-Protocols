@@ -26,9 +26,10 @@ By running the following commands, you can setup a topology, modify the cost of 
 topology <s1>-<d1>-<c1> <s2>-<d2>-<c2> ...
 ```
 If setup is successful, it will print `Done!` message.
+
 Sample output:
 <p align="center">
-<img src="">
+<img src="https://github.com/Mohta3b/CN_CHomeworks_3/assets/86144768/dcca7a97-2e4b-4fae-8110-b974acb97a74">
 </p>
 
 #### Modify Cost
@@ -37,9 +38,10 @@ Sample output:
 modify <s>-<d>-<c>
 ```
 ***Note:*** Source node and destination node can NOT be identical. 
+
 Sample output:
 <p align="center">
-<img src="">
+<img src="https://github.com/Mohta3b/CN_CHomeworks_3/assets/86144768/ccc637ab-f7a3-4770-a20d-70c7b5012a16">
 </p>
 
 #### Remove Link
@@ -47,9 +49,10 @@ Sample output:
 ```text
 remove <s>-<d>
 ```
+
 Sample output:
 <p align="center">
-<img src="">
+<img src="https://github.com/Mohta3b/CN_CHomeworks_3/assets/86144768/bfe92d5b-7c51-4747-a30e-cf0a640c81f3">
 </p>
 
 #### Show Topology
@@ -57,8 +60,10 @@ Sample output:
 ```text
 show
 ```
+
+Sample output:
 <p align="center">
-<img src="">
+<img src="https://github.com/Mohta3b/CN_CHomeworks_3/assets/86144768/c03f075a-1aa6-425b-86ef-00cce8753dfd">
 </p>
 
 ### Protocols
@@ -75,8 +80,13 @@ bgp
 ```text
 lsrp <source>
 ```
+
+Sample output for input '5':
 <p align="center">
-<img src="">
+<img src="https://github.com/Mohta3b/CN_CHomeworks_3/assets/86144768/3457d9fa-4006-4675-991f-7f78b3dffbf6">
+</p>
+<p align="center">
+<img src="https://github.com/Mohta3b/CN_CHomeworks_3/assets/86144768/1842562a-3753-4242-8c2d-aa0cbcbaf2e1">
 </p>
 
 #### Distance Vector
@@ -84,9 +94,20 @@ lsrp <source>
 ```text
 dvrp <source>
 ```
+
+Sample output for input '5':
 <p align="center">
-<img src="">
+<img src="https://github.com/Mohta3b/CN_CHomeworks_3/assets/86144768/94cbd7f8-96fe-42b6-b470-d067b8bb9f1d">
 </p>
+
+Sample output for all nodes:
+<p align="center">
+<img src="https://github.com/Mohta3b/CN_CHomeworks_3/assets/86144768/8805323b-f134-46a9-a475-96b2ffb1e2bc">
+</p>
+<p align="center">
+<img src="https://github.com/Mohta3b/CN_CHomeworks_3/assets/86144768/ed341ed4-f59b-4efc-bf3d-bc87b70b11c6">
+</p>
+
 
 ### How to use?
 You can run the following commands to run the program.
