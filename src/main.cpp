@@ -30,7 +30,7 @@ void PressEntertoContinue()
   // clear screen
   // it's wierd, Idon't know why, but it doesn't work.
   // system("cls"); // windows
-  // system("clear"); // linux
+  system("clear"); // linux
 
 }
 vector<string> get_space_seprated_str(string str)
