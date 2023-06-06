@@ -6,7 +6,7 @@
 #include <fstream>
 #include <chrono>
 
-#include "protocol.hpp"
+#include "../include/protocol.hpp"
 
 
 #define TOPOLOGY "topology"
@@ -30,7 +30,7 @@ void PressEntertoContinue()
   // clear screen
   // it's wierd, Idon't know why, but it doesn't work.
   // system("cls"); // windows
-  system("clear"); // linux
+  // system("clear"); // linux
 
 }
 vector<string> get_space_seprated_str(string str)
@@ -134,14 +134,33 @@ bool get_input(Graph &networkGraph)
   else if (command == LSRP)
   {
     string str;
-    cin >> str;
-    networkGraph.lsrp(stoi(str));
+    getline(cin, str);
+    vector<string> params;
+    params = get_space_seprated_str(str);
+    int source;
+    if (params.size() == 0) {
+      networkGraph.lsrp();
+    } else {
+      str = params[0];
+      source = stoi(str);
+      networkGraph.lsrp(source);
+    }
   }
   else if (command == DVRP)
   {
     string str;
-    cin >> str;
-    networkGraph.dvrp(stoi(str));
+    getline(cin, str);
+    vector<string> params;
+    params = get_space_seprated_str(str);
+    int source;
+    if (params.size() == 0) {
+      networkGraph.dvrp();
+    } else {
+      str = params[0];
+      source = stoi(str);
+      networkGraph.dvrp(source);
+    }
+    
   }
   else
   {

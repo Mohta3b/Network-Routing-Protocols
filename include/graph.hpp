@@ -174,4 +174,5 @@ Status Graph::remove(vector<int> const &input)
   //   cout << "yes" << endl;
   // }
   // we can delete a node if it doesn't have any neighbour, using map.size() == 0;
+  return Status::OK;
 }
